@@ -5,7 +5,22 @@ import { ReactNode, useState } from "react";
 import { routes } from "@/routes";
 import { BreadcrumbProvider, useBreadcrumb } from "@/contexts/BreadcrumbContext";
 import { BottomBar } from "@/components/ui/BottomBar";
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { redirect } from 'next/navigation'
+import Image from "next/image";
+
+
+
 const AdminLayout = ({ children }: { children: ReactNode }) => {
+    const { user, error, isLoading } = useUser();
+    if (isLoading) return (
+        <div className="flex animate-zoom-repeat justify-center flex-col items-center w-screen h-screen">
+        <Image src="/isologo1.svg" alt="Monolith Logo" width={200} height={200} priority={true} />
+        Loading...
+    </div>)
+    if (error) return <div>{error.message}</div>
+    if (!user) redirect('/api/auth/login')
+
 
     return (
         <BreadcrumbProvider>
