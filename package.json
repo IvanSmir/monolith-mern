@@ -1,9 +1,0 @@
-{
-  "scripts": {
-    "build": "cd server && npm run build",
-    "start": "cd server && npm run start"
-  },
-  "engines": {
-    "node": "20.x"
-  }
-}
