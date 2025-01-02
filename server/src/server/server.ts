@@ -18,10 +18,12 @@ const app = express();
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 //Configutar cors
+const origin = process.env.ORIGIN || "http://localhost:3000";
+
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000"],
+    origin: [origin],
   })
 );
 
