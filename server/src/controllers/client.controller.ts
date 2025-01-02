@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Client, { IClient } from "../models/client.model";
 import Project from "../models/project.model";
 import { uploadFile } from "../utils/uploadImage";
+import { uploadFileSupabase } from "../utils/uploadImageSupabase";
 import mongoose from "mongoose";
 
 export const getClients = async (req: Request, res: Response) => {
@@ -49,7 +50,11 @@ export const createClient = async (req: Request, res: Response) => {
     const images = files?.["image"] as Express.Multer.File[] | undefined;
     let client: IClient;
     if (images && images.length > 0) {
-      const { ref, downloadUrl } = await uploadFile(images[0], name, "client");
+      const { downloadUrl } = await uploadFileSupabase(
+        images[0],
+        name,
+        "client"
+      );
       client = new Client({
         name,
         email,
@@ -77,7 +82,11 @@ export const updateClient = async (req: Request, res: Response) => {
     const images = files?.["image"] as Express.Multer.File[] | undefined;
     let client;
     if (images && images.length > 0) {
-      const { ref, downloadUrl } = await uploadFile(images[0], name, "client");
+      const { downloadUrl } = await uploadFileSupabase(
+        images[0],
+        name,
+        "client"
+      );
       client = await Client.findByIdAndUpdate(id, {
         name,
         email,

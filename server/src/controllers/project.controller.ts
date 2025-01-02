@@ -3,6 +3,7 @@ import Project, { IProject } from "../models/project.model";
 import Task from "../models/task.model";
 import Comment from "../models/comment.model";
 import { uploadFile } from "../utils/uploadImage";
+import { uploadFileSupabase } from "../utils/uploadImageSupabase";
 
 export const getProjects = async (req: Request, res: Response) => {
   try {
@@ -67,7 +68,7 @@ export const createProject = async (req: Request, res: Response) => {
     const images = files?.["image"] as Express.Multer.File[] | undefined;
     let project: IProject;
     if (images && images.length > 0) {
-      const { ref, downloadUrl } = await uploadFile(
+      const { downloadUrl } = await uploadFileSupabase(
         images[0],
         name,
         "projects"
@@ -127,7 +128,7 @@ export const updateProject = async (req: Request, res: Response) => {
     const images = files?.["image"] as Express.Multer.File[] | undefined;
     let project;
     if (images && images.length > 0) {
-      const { ref, downloadUrl } = await uploadFile(
+      const { downloadUrl } = await uploadFileSupabase(
         images[0],
         name,
         "projects"

@@ -128,7 +128,7 @@ const ViewProject = () => {
             <h2 className="text-4xl font-bold mb-4">{project?.name}</h2>
             <p className="text-gray-700 text-lg mb-6">{project?.description}</p>
             {project?.demoUrl && (
-              <Link href={project?.demoUrl}>
+              <Link href={project.demoUrl} target="_blank" rel="noreferrer">
                 <Button className="text-lg">View Demo</Button>
               </Link>
             )}

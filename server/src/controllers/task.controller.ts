@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Task, { ITask } from "../models/task.model";
 import Project from "../models/project.model";
 import { uploadFile } from "../utils/uploadImage";
+import { uploadFileSupabase } from "../utils/uploadImageSupabase";
 
 // Function to get all tasks from the database
 export const getTasks = async (req: Request, res: Response) => {
@@ -69,7 +70,7 @@ export const createTask = async (req: Request, res: Response) => {
     const images = files?.["image"] as Express.Multer.File[] | undefined;
     let task: ITask;
     if (images && images.length > 0) {
-      const { ref, downloadUrl } = await uploadFile(
+      const { downloadUrl } = await uploadFileSupabase(
         images[0],
         req.body.title,
         "tasks"
@@ -110,7 +111,11 @@ export const updateTask = async (req: Request, res: Response) => {
     const images = files?.["image"] as Express.Multer.File[] | undefined;
     let task;
     if (images && images.length > 0) {
-      const { ref, downloadUrl } = await uploadFile(images[0], title, "tasks");
+      const { downloadUrl } = await uploadFileSupabase(
+        images[0],
+        title,
+        "tasks"
+      );
       task = await Task.findByIdAndUpdate(id, {
         title,
         description,
