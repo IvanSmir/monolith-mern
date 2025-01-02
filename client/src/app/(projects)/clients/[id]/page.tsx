@@ -149,10 +149,10 @@ const ClientPage = () => {
     setShowCreateProjectModal(!showCreateProjectModal);
   };
 
-  const handleRegisterProjectSubmit = (formData: Project) => {
+  const handleRegisterProjectSubmit = (formData: FormData) => {
     const registerPromise = async () => {
       try {
-        formData.userId = user?.sub as string;
+        formData.append('userId', user?.sub as string);
         const res = await fetch('/api/projects', {
           method: 'POST',
           body: JSON.stringify(formData),

@@ -92,7 +92,7 @@ const CreateProjectModal = ({
         startDate: moment().format("YYYY-MM-DD"),
         endDate: moment().format("YYYY-MM-DD"),
         status: "pending",
-        demoUrl: "", 
+        demoUrl: "",
       });
       setImage(null);
       setPreview("");
