@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getSession } from "@auth0/nextjs-auth0";
 import Image from "next/image";
-import Link from "next/link";
-
-// export const Metadata = {
-//   title: "Monolith",
-//   description: "A project management tool for freelancers.",
-// };
 
 export default async function Home() {
   const session = await getSession();
@@ -15,21 +9,21 @@ export default async function Home() {
       <div className="flex justify-between">
         <div className="flex items-center justify-center ">
           <Image src="/logotipo1.png" alt="Monolith Logo" width={180} height={40} />
-        </div >
-        {session ?
-          <Link href="/dashboard">
+        </div>
+        {session ? (
+          <a href="/dashboard">
             <Button variant="link">Dashboard</Button>
-          </Link> :
+          </a>
+        ) : (
           <div>
-            <Link href="/api/auth/login">
+            <a href="/api/auth/login">
               <Button variant="link">Login</Button>
-            </Link>
-            <Link href="/api/auth/signup">
+            </a>
+            <a href="/api/auth/signup">
               <Button variant="link">Register</Button>
-            </Link>
+            </a>
           </div>
-
-        }
+        )}
       </div>
 
       <main className="flex flex-col items-center justify-center min-h-[90vh] py-2">
